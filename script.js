@@ -14,12 +14,12 @@ let highscoreNumber = 0;
 let isPlaying = true;
 
 let randomValue = Math.trunc(Math.random() * 20 + 1);
-number.textContent = randomValue;
 
 const messagePrinter = function (text) {
   message.textContent = text;
 };
-checkBox.addEventListener('click', function () {
+
+const eventClick = function () {
   const inputedValue = Number(inputBox.value);
   if (isPlaying && inputedValue > 0) {
     if (inputedValue === randomValue) {
@@ -31,6 +31,7 @@ checkBox.addEventListener('click', function () {
         highscoreNumber = scoreNumber;
         highscore.textContent = scoreNumber;
       }
+      number.textContent = randomValue;
     } else if (inputedValue < randomValue) {
       messagePrinter('Very Low 📉');
       scoreNumber -= 1;
@@ -45,7 +46,8 @@ checkBox.addEventListener('click', function () {
       isPlaying = false;
     }
   }
-});
+};
+checkBox.addEventListener('click', eventClick);
 again.addEventListener('click', function () {
   scoreNumber = 20;
   score.textContent = 20;
@@ -53,7 +55,12 @@ again.addEventListener('click', function () {
   number.style.width = '15rem';
   inputBox.value = '';
   randomValue = Math.trunc(Math.random() * 20 + 1);
-  console.log('jks');
   isPlaying = true;
-  number.textContent = randomValue;
+  number.textContent = '?';
+});
+document.addEventListener('keydown', function (e) {
+  console.log(e.key);
+  if (e.key === 'Enter') {
+    eventClick();
+  }
 });
